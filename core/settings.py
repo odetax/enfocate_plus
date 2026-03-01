@@ -62,7 +62,7 @@ class Settings:
         "Maze: Light-Trace": "grupo1.png",
         "Crash": "grupo2.png",
         "Encuentra las diferencias": "grupo3.png",
-        "G04_Keep_The_Cadence": "grupo4.png",
+        "Keep The Cadence": "grupo4.png",
         "Purely Placed": "grupo5.png",
         "Sokoban": "grupo6.png",
         "Osu! Legacy": "grupo7.png",
