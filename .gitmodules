@@ -1,0 +1,33 @@
+[submodule "modules/G01_Game_OAB_UDO"]
+	path = modules/G01_Game_OAB_UDO
+	url = https://github.com/Aguilera2509/Game_OAB_UDO.git
+[submodule "modules/G02_Crash"]
+	path = modules/G02_Crash
+	url = https://github.com/AlephXD/Crash.git
+[submodule "modules/G03_Proyecto_TDAH"]
+	path = modules/G03_Proyecto_TDAH
+	url = https://github.com/Kurui02/proyecto-tdah.git
+[submodule "modules/G04_Keep_The_Cadence"]
+	path = modules/G04_Keep_The_Cadence
+	url = https://github.com/Neritoou/Keep-The-Cadence.git
+[submodule "modules/G05_Purely_Placed"]
+	path = modules/G05_Purely_Placed
+	url = https://github.com/Juqn21/Purely-Placed.git
+[submodule "modules/G06_Sokoban"]
+	path = modules/G06_Sokoban
+	url = https://github.com/Abrasha06/sokoban.git
+[submodule "modules/G07_Osu_Legacy"]
+	path = modules/G07_Osu_Legacy
+	url = https://github.com/Chris15-10/Osu-Legacy.git
+[submodule "modules/G08_ColorFusion"]
+	path = modules/G08_ColorFusion
+	url = https://github.com/Dano-jp/Colorfusion.git
+[submodule "modules/G09_Memoria"]
+	path = modules/G09_Memoria
+	url = https://github.com/Gabo-Skyder8/Memoria-grupo-8-.git
+[submodule "modules/G10_Salmon_Fishing"]
+	path = modules/G10_Salmon_Fishing
+	url = https://github.com/alecsoc/salmon-fishing.git
+[submodule "modules/G11_Pomodoro_TD"]
+	path = modules/G11_Pomodoro_TD
+	url = https://github.com/DiGiorgio-L/Pomodoro-Tower-Defence-modulo-11-.git
