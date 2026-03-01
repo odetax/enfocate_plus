@@ -26,7 +26,7 @@
 
 ## 📖 Descripción
 
-**ENFÓCATE+** es una plataforma unificada de minijuegos diseñada específicamente para estimular las capacidades cognitivas de personas con TDAH (Trastorno por Déficit de Atención e Hiperactividad). Ofrece un entorno digital libre de distracciones y altamente intuitivo para entrenar la concentración y la memoria.
+**ENFÓCATE+** es una plataforma unificada de minijuegos diseñada específicamente para estimular las capacidades cognitivas de personas con TDAH (Trastorno por Déficit de Atención e Hiperactividad). Ofrece un entorno digital libre de distracciones e intuitivo para entrenar la concentración y la memoria.
 
 ---
 
@@ -41,11 +41,11 @@ Este proyecto busca un equilibrio al utilizar Python para crear una herramienta 
 ## 🎯 Objetivos
 
 **Objetivo General:**
-* Diseñar, desarrollar e integrar 11 juegos adaptados a las necesidades de personas con TDAH en una aplicación de escritorio programada en Python.
+* Diseñar, desarrollar e integrar 12 juegos adaptados a las necesidades de personas con TDAH en una aplicación de escritorio programada en Python.
 
 **Objetivos Específicos:**
-- **Accesibilidad Cognitiva:** Interfaces limpias, sin sobreestimulación (evitar parpadeos excesivos o sonidos estridentes).
-- **Consistencia Técnica:** Lograr que los 11 juegos funcionen bajo un mismo menú sin errores.
+- **Accesibilidad Cognitiva:** Interfaces limpias, sin sobreestimulación (evitando parpadeos excesivos o sonidos estridentes).
+- **Consistencia Técnica:** Lograr que los 12 juegos funcionen bajo un mismo menú sin errores.
 - **Modularidad:** Cada juego es una pieza independiente que se integra al sistema central.
 
 ---
@@ -63,21 +63,18 @@ Este proyecto busca un equilibrio al utilizar Python para crear una herramienta 
 ## ⚙️ Instalación
 
 ```bash
-# 1. Clonar el repositorio principal
-git clone <URL_DEL_REPOSITORIO>
+# 1. Clonar el repositorio principal con todos sus minijuegos (submódulos)
+git clone --recurse-submodules <URL_DEL_REPOSITORIO>
 cd proyecto_enfocate_plus
 
-# 2. Inicializar y actualizar los submódulos (juegos)
-git submodule update --init --recursive
-
-# 3. Instalar las dependencias
+# 2. Instalar las dependencias
 pip install -r requirements.txt
 
-# 4. Ejecutar la aplicación
+# 3. Ejecutar la aplicación
 python main.py
 ```
 
-> ⚠️ Si agregas un nuevo submódulo de juego, asegúrate de correr `git submodule update --init` para que los demás puedan descargarlo.
+> ⚠️ Si otro equipo actualiza su juego, asegúrate de correr `git submodule update --remote` periódicamente para obtener la última versión de todos los minijuegos.
 
 ---
 
@@ -90,25 +87,26 @@ proyecto_enfocate_plus/
 ├── .gitmodules               # Registro de todos los submódulos (juegos)
 ├── requirements.txt          # Librerías necesarias
 ├── README.md                 # Este archivo
-├── main.py                   # Punto de entrada: menú principal
-├── engine.py                 # Configuraciones globales (colores, fuentes, rutas)
+├── main.py                   # Punto de entrada al launcher
+├── engine.py                 # Motor principal del launcher
 ├── assets/                   # Recursos compartidos (logo, fuentes, UI común)
 │
 │
 ├── ui/
 │   ├── base.py
 │   ├── components.py
-│   └── screen.py
+│   └── screens.py
 │
 ├── core/
 │   ├── managers/
 │   │   ├── asset_manager.py
+│   │   ├── game_scanner.py   # Escanea los módulos
+│   │   ├── game_launcher.py  # Lanza las instancias
 │   │   └── sound_player.py
 │   │
 │   └── settings.py
 │   
-└── games/                    # Carpeta contenedora de todos los juegos
-    ├── __init__.py
+└── modules/                    # Carpeta contenedora de todos los juegos
     │
     ├── equipo_01_nombre/     # Submódulo: Juego del Equipo 1
     │   ├── main.py           # Punto de entrada del juego (Facade)
@@ -118,7 +116,7 @@ proyecto_enfocate_plus/
     │   ├── main.py
     │   └── assets/
     │
-    └── ...                   # Hasta el equipo 11
+    └── ...                   # Hasta el equipo 12
 ```
 
 ---
@@ -133,9 +131,9 @@ proyecto_enfocate_plus/
 | 04 | Keep The Cadence |
 | 05 | Purely Place |
 | 06 | Sokoban |
-| 07 | Osu Legacy |
+| 07 | Osu! Legacy |
 | 08 | ColorFusion |
-| 09 | Memoria |
+| 09 | Flip It |
 | 10 | Pescar Al Salmón |
 | 11 | Pomodo Tower Defense |
 | 12 | Disk Sort Puzzle |
@@ -146,26 +144,39 @@ proyecto_enfocate_plus/
 
 Estas reglas son **obligatorias** para que todos los juegos funcionen correctamente dentro de la plataforma.
 
-### ✅ El archivo principal debe llamarse `main.py`
+### ✅ El archivo principal debe usar clases y heredar de GameBase
 
-Cada equipo debe tener un archivo `main.py` en la raíz de su carpeta. Este archivo es la **única puerta de entrada** al juego.
+Cada equipo debe tener un archivo  `game.py`, en el cual cada juego debe estar encapsulado en una clase que herede de `GameBase`. El motor del launcher inyectará la pantalla automáticamente.
 
 ```python
-# games/equipo_01_nombre/main.py
+# modules/G01_nombre/src/game.py
 
-def run(screen, clock):
-    """
-    Función principal del juego.
-    Recibe la pantalla y el reloj del menú principal.
-    Debe hacer return al terminar (NO sys.exit).
-    """
-    # ... lógica del juego ...
-    return  # Vuelve al menú principal
+from enfocate import GameBase, GameMetadata
+
+class MiJuego(GameBase):
+    def __init__(self):
+        meta = GameMetadata(
+                title="Nombre",
+                description="...",
+                authors=["Autor1", "Autor2"],
+                group_number=1
+            )
+        super().__init__(meta)
+        
+        # Inicializar variables del juego aquí
+
+    def update(self, dt):
+        # Lógica del juego y movimiento
+        pass
+
+    def draw(self):
+        # Dibujar en la pantalla (la pantalla está en self.screen)
+        pass
 ```
 
 ### ❌ Prohibido: `sys.exit()` o `quit()`
 
-Estas funciones cierran **toda la aplicación**. Cuando el juego termine, siempre usar `return`.
+Estas funciones cierran **toda la aplicación**. Cuando el juego termine y debas volver al menú principal, utiliza el método de la clase base (`self._stop_context()`).
 
 ```python
 # ❌ MAL
@@ -173,20 +184,20 @@ pygame.quit()
 sys.exit()
 
 # ✅ BIEN
-return  # Regresa al menú principal
+self._stop_context()  # El motor detectará esto y regresará al menú
 ```
 
 ### ❌ Prohibido: Crear una nueva ventana
 
-La ventana (`pygame.display.set_mode`) la crea el menú principal. Los juegos **reciben** la pantalla como parámetro, no crean una nueva.
+La ventana (`pygame.display.set_mode`) la crea el menú del launcher. Los juegos **no crean una nueva**, sino que utilizan la que el motor les inyecta automáticamente.
 
 ```python
 # ❌ MAL
 screen = pygame.display.set_mode((800, 600))
 
 # ✅ BIEN
-def run(screen, clock):  # La pantalla llega como parámetro
-    ...
+# Utilizar la pantalla que ya está disponible en la clase principal del juego gracias a GameBase
+self.screen.blit(imagen, (0, 0))
 ```
 
 ### ❌ Prohibido: Variables globales
@@ -253,7 +264,7 @@ Cada juego implementa el patrón **Facade**: el archivo `main.py` actúa como in
 menú principal
       │
       ▼
-games/equipo_01/main.py   ← Facade (interfaz simple)
+modules/G01_nombre/main.py   ← Facade (interfaz simple)
       │
       ├── game_logic.py
       ├── renderer.py
@@ -267,7 +278,8 @@ El `main.py` del equipo **solo** importa e inicia el juego. No contiene lógica 
 
 ## 🎨 Estándares de Diseño
 
-- **Tecla ESC:** Siempre debe pausar o volver al menú principal.
+- **Tecla F12:** Botón de emergencia global administrado por el Launcher para forzar la salida de cualquier minijuego y regresar al menú principal.
+- **Tecla ESC:** Debe pausar el juego o mostrar al menú interno del juego.
 - **Textos:** Evitar textos largos; preferir íconos visuales.
 - **Estimulación:** Sin parpadeos excesivos ni sonidos estridentes.
 - **Paleta de colores:** Usar colores del `config.py` global para mantener consistencia visual.
@@ -283,19 +295,19 @@ Cada equipo trabaja en su propio repositorio (submódulo). El repositorio princi
 ```bash
 # Dentro de tu carpeta de juego (submódulo):
 git add .
-git commit -m "feat: descripción del cambio"
+git commit -m "tipo-de-commit: descripción del cambio"
 git push origin main
 
 # Desde el repositorio principal, actualizar la referencia del submódulo:
 cd ../..  # volver a la raíz del proyecto
-git add games/equipo_01_nombre
-git commit -m "chore: actualizar submódulo equipo 01"
+git add modules/G01_nombre
+git commit -m "chore: actualizar submódulo del equipo 01"
 git push
 ```
 
 ### Checklist antes de hacer push
 
-- [ ] El archivo principal se llama `main.py` y tiene la función `run(screen, clock)`
+- [ ] El archivo principal contiene una clase del juego que hereda de `GameBase`.
 - [ ] No se usa `sys.exit()`, `quit()`, ni `pygame.display.set_mode()`
 - [ ] No hay variables globales
 - [ ] Todos los assets usan rutas relativas con `pathlib` o `os`
