@@ -24,10 +24,16 @@
 	url = https://github.com/Dano-jp/Colorfusion.git
 [submodule "modules/G09_Memoria"]
 	path = modules/G09_Memoria
-	url = https://github.com/Gabo-Skyder8/Memoria-grupo-8-.git
+	url = https://github.com/Gabo-Skyder8/FLIP-IT.git
 [submodule "modules/G10_Salmon_Fishing"]
 	path = modules/G10_Salmon_Fishing
 	url = https://github.com/alecsoc/salmon-fishing.git
 [submodule "modules/G11_Pomodoro_TD"]
 	path = modules/G11_Pomodoro_TD
 	url = https://github.com/DiGiorgio-L/Pomodoro-Tower-Defence-modulo-11-.git
+[submodule "modules/G12_Disk_Sort_Puzzle"]
+	path = modules/G12_Disk_Sort_Puzzle
+	url = https://github.com/katex009/Disk-Sort-Puzzle-.git
+[submodule "libs/enfocate-core-lib"]
+	path = libs/enfocate-core-lib
+	url = https://github.com/alecsoc/enfocate-core-lib.git
