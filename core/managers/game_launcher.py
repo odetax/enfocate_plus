@@ -16,7 +16,7 @@ class GameLauncher:
             if game_folder not in sys.path:
                 sys.path.insert(0, game_folder)
 
-            print(f"🚀 Iniciando instancia de: {game_data['title']}")
+            print(f" Iniciando instancia de: {game_data['title']}")
             
             try:
                 return game_class()
@@ -31,7 +31,7 @@ class GameLauncher:
                 return game_class(generic_meta)
 
         except Exception as e:
-            print(f"❌ Error crítico al instanciar: {e}")
+            print(f" Error crítico al instanciar: {e}")
             self.stop()
             return None
         

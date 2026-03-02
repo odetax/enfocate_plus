@@ -54,19 +54,19 @@ class AssetManager:
 
             try:
                 if not path.exists():
-                    print(f"⚠️ No se encontró {path.name}, usando default_cover.png")
+                    print(f" No se encontró {path.name}, usando default_cover.png")
                     path = Settings.IMAGES_PATH / "default_cover.png"
 
                 if path.exists():
                     surf = pygame.image.load(str(path)).convert_alpha()
                     surf = pygame.transform.smoothscale(surf, Settings.BOX_CARD_SIZE)
                     Settings.GAME_COVERS[title] = surf
-                    print(f"✅ Carátula cargada para {title}")
+                    print(f" Carátula cargada para {title}")
                 else:
                     raise FileNotFoundError
                     
             except Exception as e:
-                print(f"❌ Error crítico en {title}: {e}")
+                print(f" Error crítico en {title}: {e}")
                 fallback = pygame.Surface(Settings.BOX_CARD_SIZE)
                 fallback.fill((60, 60, 60))
                 font = pygame.font.SysFont("Arial", 20)

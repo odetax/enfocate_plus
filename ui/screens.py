@@ -129,11 +129,11 @@ class MainMenu(Screen):
         if logo_surf:
             surface.blit(logo_surf, Settings.LOGO_POS)
         info_icon = AssetManager.get_image("icon_info")
-        if info_icon:
-            info_rect = info_icon.get_rect(center=Settings.INFO_POS)
-            surface.blit(info_icon, info_rect)
-        else:
-            pygame.draw.circle(surface, Settings.COLORS["secondary_color"], Settings.INFO_POS, 16)
+        # if info_icon:
+        #      info_rect = info_icon.get_rect(center=Settings.INFO_POS)
+        #      surface.blit(info_icon, info_rect)
+        # else:
+        #      pygame.draw.circle(surface, Settings.COLORS["secondary_color"], Settings.INFO_POS, 16)
         exit_icon = AssetManager.get_image("icon_power")
         if exit_icon:
             exit_rect = exit_icon.get_rect(center=Settings.EXIT_POS)

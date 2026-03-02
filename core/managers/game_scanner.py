@@ -91,10 +91,10 @@ class GameScanner:
                                 "root_path": game_folder,
                                 "cover_path": cover_path
                             })
-                            print(f"✅ ¡CARGADO!: {instancia.metadata.title}")
+                            print(f" ¡CARGADO!: {instancia.metadata.title}")
 
             except Exception as e:
-                print(f"❌ Error en {game_folder.name}: {e}")
+                print(f" Error en {game_folder.name}: {e}")
             finally:
                 sys.path = original_sys_path.copy()
                 os.chdir(original_cwd)
