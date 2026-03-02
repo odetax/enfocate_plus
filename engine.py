@@ -50,6 +50,7 @@ class Engine:
                     if self.active_game:
                         pygame.mouse.set_visible(True)
                         self.active_game._stop_context()
+                        
 
         if self.current_state == "IN_GAME" and self.active_game:
             if hasattr(self.active_game, 'estado_actual') and self.active_game.estado_actual == "MENU":
@@ -114,6 +115,7 @@ class Engine:
             self.current_state = "MAIN_MENU"
             self.screen = pygame.display.set_mode((Settings.S_WIDTH, Settings.S_HEIGHT))
             pygame.display.set_caption(Settings.TITLE)
+            SoundPlayer.play_music("menu")
 
     def draw(self):
         if self.current_state == "IN_GAME" and self.active_game:

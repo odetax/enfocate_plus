@@ -46,7 +46,11 @@ class Settings:
         "main_regular": "WorkSans-Medium.ttf"
     }
 
-    SOUNDS_MAP = {}
+    SOUNDS_MAP = {
+        "moverse": "Select.wav",
+        "entrar": "Run.wav",
+        "menu": "Menu.ogg"
+    }
 
     # Contenedores de Objetos Pygame (Cargados por AssetManager)
     IMAGES = {}

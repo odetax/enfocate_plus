@@ -1,9 +1,8 @@
 import sys
 import pygame
-
+from core.managers.sound_player import SoundPlayer
 from core.settings import Settings
 from core.managers.asset_manager import AssetManager
-
 from ui.base import Screen
 from ui.components import GameCard
 
@@ -31,6 +30,7 @@ class BootScreen(Screen):
 
 class MainMenu(Screen):
     def __init__(self, games_metadata):
+        
         self.games = games_metadata
         self.cards = [
             GameCard(g["title"], g["desc"], g["color"]) 
@@ -41,19 +41,23 @@ class MainMenu(Screen):
         self.target_scroll_x = 0
         self.font_title = pygame.font.Font(AssetManager.get_font("main_bold"), Settings.FONT_SIZE_TITLE)
         self.font_desc = pygame.font.Font(AssetManager.get_font("main_regular"), Settings.FONT_SIZE_DESC)
-
+        SoundPlayer.play_music("menu")
     def handle_events(self, events):
         for event in events:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RIGHT:
+                    SoundPlayer.play_sfx("moverse")
                     self.selected_index = min(len(self.cards) - 1, self.selected_index + 1)
                 elif event.key == pygame.K_LEFT:
+                    SoundPlayer.play_sfx("moverse")
                     self.selected_index = max(0, self.selected_index - 1)
                 elif event.key == pygame.K_RETURN:
+                    SoundPlayer.play_sfx("entrar")
                     self.pending_exit = {
                         "action": "LAUNCH",
                         "game_data": self.games[self.selected_index]
                     }
+                    SoundPlayer.stop_all()
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:
                     mouse_pos = event.pos
